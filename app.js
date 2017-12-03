@@ -6,7 +6,7 @@ const itemController = require('./controllers/itemController');
 const userController = require('./controllers/userController');
 const middleware = require('./controllers/middlewares');
 
-mongoose.connect(process.env.CONN_STRING, {
+mongoose.connect(process.env.MONGODB_URI, {
   useMongoClient: true,
 });
 mongoose.Promise = global.Promise;
