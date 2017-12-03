@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class App extends Component {
   render() {
+    console.log('hello from react');
     return (
       <div>
         <header>
