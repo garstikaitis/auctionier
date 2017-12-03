@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const itemController = require('./controllers/itemController');
 
 mongoose.connect('mongodb://localhost:27017/auction', {
@@ -8,6 +9,8 @@ mongoose.connect('mongodb://localhost:27017/auction', {
 mongoose.Promise = global.Promise;
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 itemController(app);
 
