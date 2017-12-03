@@ -19,5 +19,5 @@ middleware(app);
 itemController(app);
 userController(app);
 
-app.listen(process.env.PORT || 8000);
+app.listen(process.env.PORT || 3000);
 console.log('You are listening to port ', process.env.PORT);
