@@ -5,6 +5,7 @@ const { itemSchema } = require('./Item');
 const userSchema = Schema({
   username: String,
   password: String,
+  admin: Boolean,
   items: [itemSchema],
 });
 

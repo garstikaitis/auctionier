@@ -1,8 +1,23 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { Item } = require('../models/Item.js');
 
 module.exports = app => {
+  app.post('/login', (req, res) => {
+    User.findOne({ username: req.body.username }, (err, user) => {
+      console.log(user);
+      if (err) throw err;
+      const payload = {
+        admin: user.admin,
+      };
+      const token = jwt.sign(payload, process.env.SECRET, {
+        expiresIn: 1440,
+      });
+      res.json({ success: true, message: 'Enjoy your token!', token });
+    });
+  });
+
   app.get('/user', (req, res) => {
     User.find({}, (err, data) => {
       if (err) throw err;
