@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const morgan = require('morgan');
+
 const itemController = require('./controllers/itemController');
 const userController = require('./controllers/userController');
 const middleware = require('./controllers/middlewares');
@@ -14,6 +17,8 @@ mongoose.Promise = global.Promise;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors);
+app.use(morgan('combined'));
 
 middleware(app);
 itemController(app);
