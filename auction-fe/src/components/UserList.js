@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Api from '../utils/Api';
 
 class UserList extends React.Component {
@@ -8,18 +9,32 @@ class UserList extends React.Component {
     loading: true,
   };
 
-  componentDidMount() {
-    const data = Api.getUsers();
+  async componentDidMount() {
+    const data = await Api.getUsers();
     this.setState({
-      ...this.state,
+      error: '',
       loading: false,
       data,
     });
   }
 
+  renderUsers = () => {
+    if (this.state.data) {
+      return this.state.data.map(user => (
+        <Link to={`/user/${user._id}`} key={user._id}>
+          {user.username}
+        </Link>
+      ));
+    }
+  };
+
   render() {
-    console.log(this.state);
-    return <div>Hello from user list</div>;
+    return (
+      <div>
+        <h1>Hello from user list</h1>
+        {this.renderUsers()}
+      </div>
+    );
   }
 }
 

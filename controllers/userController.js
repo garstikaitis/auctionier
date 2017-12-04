@@ -33,13 +33,10 @@ module.exports = app => {
   });
 
   app.get('/user/:id', (req, res) => {
-    User.findOne({ _id: req.params.id })
-      .populate('items.name')
-      .exec((err, items) => {
-        console.log(items);
-        if (err) throw err;
-        res.json(items);
-      });
+    User.findById({ _id: req.params.id }, (err, data) => {
+      if (err) throw err;
+      res.json(data);
+    });
   });
 
   app.delete('/user/:id', (req, res) => {
