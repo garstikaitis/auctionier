@@ -1,4 +1,4 @@
-import { get, getById } from './common/request';
+import { get, getById, deleteResource } from './common/request';
 
 class Api {
   async getUsers() {
@@ -17,6 +17,16 @@ class Api {
       return data;
     } catch (error) {
       console.log('error fetching single user', error);
+    }
+  }
+
+  async deleteById(id) {
+    try {
+      const { data } = await deleteResource('user', id);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log('error deleting single user', error);
     }
   }
 }

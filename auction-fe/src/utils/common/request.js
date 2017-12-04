@@ -14,3 +14,9 @@ export const getById = async (resource, id) => {
     withCredentials: false,
   });
 };
+
+export const deleteResource = async (resource, id) => {
+  return axios.delete(`http://localhost:3000/${resource}/${id}`, {
+    withCredentials: false,
+  });
+};

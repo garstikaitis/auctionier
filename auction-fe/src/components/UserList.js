@@ -21,9 +21,12 @@ class UserList extends React.Component {
   renderUsers = () => {
     if (this.state.data) {
       return this.state.data.map(user => (
-        <Link to={`/user/${user._id}`} key={user._id}>
-          {user.username}
-        </Link>
+        <div>
+          <Link to={`/user/${user._id}`} key={user._id}>
+            {user.username}
+          </Link>
+          <button onClick={() => Api.deleteById(user._id)}>DELETE USER</button>
+        </div>
       ));
     }
   };
