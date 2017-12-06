@@ -47,6 +47,15 @@ class Api {
       console.log('error creating user', error);
     }
   }
+
+  async getItems() {
+    try {
+      const { data } = await get('items');
+      return data;
+    } catch (error) {
+      console.log('error fetching items', error);
+    }
+  }
 }
 
 export default new Api();

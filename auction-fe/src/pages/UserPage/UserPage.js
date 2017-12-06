@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Items from '../../components/Items/Items';
+
 import { fetchUser } from './actions';
 
 class UserPage extends React.Component {
@@ -22,6 +24,7 @@ class UserPage extends React.Component {
         <div>
           <h1>Hello from user</h1>
           {this.renderUser()}
+          <Items />
         </div>
       );
     } else {
