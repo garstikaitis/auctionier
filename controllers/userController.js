@@ -19,7 +19,6 @@ module.exports = app => {
   });
 
   app.get('/user', (req, res) => {
-    // console.log(req);
     User.find({}, (err, data) => {
       if (err) throw err;
       res.json(data);
