@@ -12,9 +12,24 @@ class UserPage extends React.Component {
 
   renderUser = () => {
     if (this.props.user) {
-      return <div>{this.props.user.data.username}</div>;
+      return (
+        <div>
+          {this.props.user.data.username} {this.renderUserItems()}
+        </div>
+      );
     } else {
       return <div>Loading...</div>;
+    }
+  };
+
+  renderUserItems = () => {
+    if (this.props.user.data.items) {
+      return this.props.user.data.items.map(item => (
+        <div>
+          <div>Name: {item.name}</div>
+          <div>Price: {item.price}</div>
+        </div>
+      ));
     }
   };
 

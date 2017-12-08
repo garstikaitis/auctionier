@@ -48,14 +48,16 @@ module.exports = app => {
   app.put('/users/:userId/:itemId', (req, res) => {
     User.findById({ _id: req.params.userId })
       .populate('items')
-      .exec((err, data) => {
+      .exec((err, user) => {
         if (err) throw err;
         Item.findById({ _id: req.params.itemId }, (err, item) => {
           if (err) throw err;
-          data.items.push(item);
-          data.save(err => {
+          console.log('-------------USER-------------', user);
+          console.log('-------------ITEM-------------', item);
+          user.items.push(item);
+          user.save(err => {
             if (err) throw err;
-            res.json(data);
+            res.json(user);
           });
         });
       });

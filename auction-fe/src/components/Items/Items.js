@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import { fetchItems, addItemToUser } from './actions';
 import { fetchUsers } from '../../pages/UserListPage/actions';
+import { fetchUser } from '../../pages/UserPage/actions';
 
 class Items extends React.Component {
   componentDidMount() {
@@ -13,8 +14,8 @@ class Items extends React.Component {
 
   handleAddItemToUser = async (userId, itemId) => {
     await this.props.addItemToUser(userId, itemId);
-    await this.props.fetchItems();
     await this.props.fetchUsers();
+    this.forceUpdate();
   };
 
   renderItems = () => {
@@ -67,4 +68,5 @@ export default connect(state => ({ items: state.items, users: state.users }), {
   fetchItems,
   fetchUsers,
   addItemToUser,
+  fetchUser,
 })(ItemsWithRouter);

@@ -43,10 +43,6 @@ export function fetchItems() {
 function addItemToUserRequest(userId, itemId) {
   return {
     type: ADD_ITEM_TO_USER_PENDING,
-    payload: {
-      userId,
-      itemId,
-    },
   };
 }
 

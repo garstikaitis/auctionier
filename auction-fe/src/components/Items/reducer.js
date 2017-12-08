@@ -30,10 +30,7 @@ export default (state = initialState, action) => {
         loading: false,
       };
     case ADD_ITEM_TO_USER_PENDING:
-      return {
-        ...state,
-        data: action.payload,
-      };
+      return state;
     case ADD_ITEM_TO_USER_SUCCESS:
       return {
         ...state,
