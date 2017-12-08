@@ -3,77 +3,99 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { List, ListItem } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 import Api from '../../utils/Api';
-import { fetchUsers } from './actions';
+import { fetchUsers, createUser, deleteUser } from './actions';
 
 class UserListPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
 
-    // this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    // this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    // this.createUser = this.createUser.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.createUser = this.createUser.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchUsers();
   }
 
-  // handleUsernameChange(event) {
-  //   this.setState({ username: event.target.value });
-  // }
+  handleUsernameChange(event) {
+    this.setState({ username: event.target.value });
+  }
 
-  // handlePasswordChange(event) {
-  //   this.setState({ password: event.target.value });
-  // }
+  handlePasswordChange(event) {
+    this.setState({ password: event.target.value });
+  }
 
-  // async createUser(event) {
-  //   event.preventDefault();
-  //   const credentials = {
-  //     username: this.state.username,
-  //     password: this.state.password,
-  //   };
-  //   await Api.createUser(credentials);
-  // }
+  async createUser(event) {
+    event.preventDefault();
+    const credentials = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+    await this.props.createUser(credentials);
+    this.setState({ username: '', password: '' });
+  }
 
-  // handleDeleteUser = id => {
-  //   return Api.deleteUser(id);
-  // };
+  handleDeleteUser = async id => {
+    await this.props.deleteUser(id);
+  };
 
   renderUsers = () => {
     if (this.props.users.data) {
       return this.props.users.data.map(user => (
-        <div>
+        <ListItem>
           <Link to={`/users/${user._id}`} key={user._id}>
             {user.username}
           </Link>
-          <button onClick={() => this.handleDeleteUser(user._id)}>
-            DELETE USER
-          </button>
-        </div>
+          <RaisedButton
+            label="DELETE USER"
+            secondary
+            onClick={() => this.handleDeleteUser(user._id)}
+          />
+        </ListItem>
       ));
     }
   };
 
   render() {
-    console.log(this.props);
     if (this.props.users.data) {
       return (
-        <div>
-          <h1>Hello from user list</h1>
-          {this.renderUsers()}
-          <form>
-            <input type="text" placeholder="username" />
-            <input type="password" placeholder="password" />
-            <button type="submit">Create user</button>
+        <List>
+          <Subheader>Hello from user list</Subheader>
+          <List>{this.renderUsers()}</List>
+          <form onSubmit={this.createUser}>
+            <TextField
+              type="text"
+              placeholder="Username"
+              value={this.state.username}
+              onChange={this.handleUsernameChange}
+            />
+            <TextField
+              type="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+            />
+            <RaisedButton primary type="submit" label="Submit" />
           </form>
-        </div>
+        </List>
       );
     }
   }
 }
 
-export default connect(state => ({ users: state.users }), { fetchUsers })(
-  UserListPage,
-);
+export default connect(state => ({ users: state.users }), {
+  fetchUsers,
+  createUser,
+  deleteUser,
+})(UserListPage);
