@@ -6,7 +6,6 @@ const { Item } = require('../models/Item.js');
 module.exports = app => {
   app.post('/login', (req, res) => {
     User.findOne({ username: req.body.username }, (err, user) => {
-      console.log(user);
       if (err) throw err;
       const payload = {
         admin: user.admin,
@@ -46,7 +45,7 @@ module.exports = app => {
     });
   });
 
-  app.put('/user/:userId/:itemId', (req, res) => {
+  app.put('/users/:userId/:itemId', (req, res) => {
     User.findById({ _id: req.params.userId })
       .populate('items')
       .exec((err, data) => {

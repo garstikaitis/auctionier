@@ -3,6 +3,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { List, ListItem } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 import Api from '../../utils/Api';
 import { fetchUsers, createUser, deleteUser } from './actions';
@@ -49,41 +53,42 @@ class UserListPage extends React.Component {
   renderUsers = () => {
     if (this.props.users.data) {
       return this.props.users.data.map(user => (
-        <div>
+        <ListItem>
           <Link to={`/users/${user._id}`} key={user._id}>
             {user.username}
           </Link>
-          <button onClick={() => this.handleDeleteUser(user._id)}>
-            DELETE USER
-          </button>
-        </div>
+          <RaisedButton
+            label="DELETE USER"
+            secondary
+            onClick={() => this.handleDeleteUser(user._id)}
+          />
+        </ListItem>
       ));
     }
   };
 
   render() {
-    console.log(this.props);
     if (this.props.users.data) {
       return (
-        <div>
-          <h1>Hello from user list</h1>
-          {this.renderUsers()}
+        <List>
+          <Subheader>Hello from user list</Subheader>
+          <List>{this.renderUsers()}</List>
           <form onSubmit={this.createUser}>
-            <input
+            <TextField
               type="text"
               placeholder="Username"
               value={this.state.username}
               onChange={this.handleUsernameChange}
             />
-            <input
+            <TextField
               type="password"
               placeholder="Password"
               value={this.state.password}
               onChange={this.handlePasswordChange}
             />
-            <input type="submit" value="Submit" />
+            <RaisedButton primary type="submit" label="Submit" />
           </form>
-        </div>
+        </List>
       );
     }
   }
