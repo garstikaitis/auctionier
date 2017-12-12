@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-import { User } from './model';
+import User from './model';
 import { Item } from '../items';
 
 export const login = (req, res) => {

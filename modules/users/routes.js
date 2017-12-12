@@ -8,6 +8,6 @@ routes.get('/users/:id', UserController.getUserById);
 routes.post('/users', UserController.createUser);
 routes.delete('/users/:id', UserController.deleteUser);
 routes.put('/users/:id', UserController.addItemToUser);
-routes.post('/users', UserController.login);
+routes.post('/login', UserController.login);
 
 export default routes;
