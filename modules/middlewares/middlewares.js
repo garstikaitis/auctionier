@@ -1,5 +1,5 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 const apiRoutes = express.Router();
 import _ from 'lodash';
 

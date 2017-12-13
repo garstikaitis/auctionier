@@ -1,18 +1,27 @@
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 import User from './model';
 import { Item } from '../items';
 
 export const login = (req, res) => {
   User.findOne({ username: req.body.username }, (err, user) => {
+    console.log(user);
     if (err) throw err;
-    const payload = {
-      admin: user.admin,
-    };
-    const token = jwt.sign(payload, 'djkhaledanotherone', {
-      expiresIn: 1440,
-    });
-    res.json({ success: true, message: 'Enjoy your token!', token });
+    if (!user) {
+      res.json({ message: 'User not found' });
+    } else if (user) {
+      if (user.password != req.body.password) {
+        res.json({ message: 'Password does not match' });
+      } else {
+        const payload = {
+          admin: user.admin,
+        };
+        const token = jwt.sign(payload, 'djkhaledanotherone', {
+          expiresIn: 1440,
+        });
+        res.json({ success: true, message: 'Enjoy your token!', token });
+      }
+    }
   });
 };
 
