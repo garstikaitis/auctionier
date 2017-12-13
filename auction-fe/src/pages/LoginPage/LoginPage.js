@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import NavBarStatic from '../../components/NavBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import { login } from './actions';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class LoginPage extends React.Component {
       username: this.state.username,
       password: this.state.password,
     };
-    this.setState({ username: '', password: '' });
+    this.props.login(credentials);
   }
 
   render() {
@@ -66,7 +67,7 @@ class LoginPage extends React.Component {
 
           <form
             style={{ display: 'flex', flexDirection: 'column' }}
-            onSubmit={this.createUser}
+            onSubmit={this.login}
           >
             <TextField
               style={{ marginTop: 20 }}
@@ -106,4 +107,6 @@ class LoginPage extends React.Component {
   }
 }
 
-export default connect(state => ({ users: state.loggedInUser }), {})(LoginPage);
+export default connect(state => ({ users: state.authentication }), { login })(
+  LoginPage,
+);

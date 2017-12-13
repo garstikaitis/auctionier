@@ -62,6 +62,24 @@ class Api {
       console.log('error putting items to user', error);
     }
   }
+
+  async authenticate(user) {
+    try {
+      const { data } = await axios.post(
+        'http://localhost:3000/api/login',
+        {
+          username: user.username,
+          password: user.password,
+        },
+        {
+          withCredentials: false,
+        },
+      );
+      return data;
+    } catch (error) {
+      console.log('error authenticating user', error);
+    }
+  }
 }
 
 export default new Api();
