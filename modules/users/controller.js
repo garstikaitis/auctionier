@@ -16,7 +16,7 @@ export const login = (req, res) => {
         const payload = {
           admin: user.admin,
         };
-        const token = jwt.sign(payload, 'djkhaledanotherone', {
+        const token = jwt.sign(payload, process.env.SECRET, {
           expiresIn: 1440,
         });
         res.json({ success: true, message: 'Enjoy your token!', token });

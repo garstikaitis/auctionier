@@ -1,4 +1,5 @@
 import Api from '../../utils/Api';
+import axios from 'axios';
 
 export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_SUCESS = 'LOGIN_SUCESS';
@@ -15,6 +16,11 @@ function loginRequest(user) {
 }
 
 function loginSucess(user) {
+  if (user.token) {
+    window.location.href = '/users';
+    axios.defaults.headers.common['x-access-token'] = user.token;
+  }
+
   return {
     type: LOGIN_SUCESS,
     payload: user.token,

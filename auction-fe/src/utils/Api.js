@@ -4,7 +4,7 @@ import { get, getById, deleteResource, putItemToUser } from './common/request';
 class Api {
   async getUsers() {
     try {
-      const { data } = await get('user');
+      const { data } = await get('users');
       return data;
     } catch (error) {
       console.log('error fetching users', error);
@@ -13,7 +13,7 @@ class Api {
 
   async getSingleUser(id) {
     try {
-      const { data } = await getById('user', id);
+      const { data } = await getById('users', id);
       return data;
     } catch (error) {
       console.log('error fetching single user', error);
@@ -22,7 +22,7 @@ class Api {
 
   async deleteUser(id) {
     try {
-      const { data } = await deleteResource('user', id);
+      const { data } = await deleteResource('users', id);
       return data;
     } catch (error) {
       console.log('error deleting single user', error);
@@ -32,7 +32,7 @@ class Api {
   async createUser(user) {
     try {
       await axios.post(
-        'http://localhost:3000/user',
+        'http://localhost:3000/users',
         {
           username: user.username,
           password: user.password,
