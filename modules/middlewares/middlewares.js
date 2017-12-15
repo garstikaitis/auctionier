@@ -4,7 +4,7 @@ const apiRoutes = express.Router();
 import _ from 'lodash';
 
 apiRoutes.use((req, res, next) => {
-  const nonSecurePaths = ['/', '/api/login', '/api/signup'];
+  const nonSecurePaths = ['/', '/api/login', '/api/signup', '/api/upload'];
   const token = req.headers['x-access-token'];
   if (_.includes(nonSecurePaths, req.path)) {
     return next();

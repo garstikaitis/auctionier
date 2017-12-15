@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 import jwt from 'jsonwebtoken';
 import User from './model';
+import cloudinary from 'cloudinary';
 import { Item } from '../items';
 
 export const login = (req, res) => {
@@ -25,7 +26,6 @@ export const login = (req, res) => {
 };
 
 export const getUsers = (req, res) => {
-  console.log(req.headers);
   User.find({}, (err, data) => {
     if (err) throw err;
     res.json(data);

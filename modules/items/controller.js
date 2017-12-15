@@ -11,7 +11,11 @@ export const getItems = (req, res) => {
 export const createItem = (req, res) => {
   const newItem = new Item(req.body).save((err, data) => {
     if (err) throw err;
-    res.json(data);
+    cloudinary.v2.uploader.upload(req.files.image, (err, image) => {
+      console.log(req.files);
+      if (err) throw err;
+      res.json(data);
+    });
   });
 };
 
