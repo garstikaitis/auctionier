@@ -16,11 +16,7 @@ function loginRequest(user) {
 }
 
 function loginSucess(user) {
-  if (user.token) {
-    window.location.href = '/users';
-    axios.defaults.headers.common['x-access-token'] = user.token;
-  }
-
+  window.location.href = '/users';
   return {
     type: LOGIN_SUCESS,
     payload: user.token,

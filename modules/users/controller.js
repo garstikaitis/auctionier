@@ -5,7 +5,6 @@ import { Item } from '../items';
 
 export const login = (req, res) => {
   User.findOne({ username: req.body.username }, (err, user) => {
-    console.log(user);
     if (err) throw err;
     if (!user) {
       res.json({ message: 'User not found' });

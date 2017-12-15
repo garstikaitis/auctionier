@@ -5,14 +5,14 @@ import _ from 'lodash';
 
 apiRoutes.use((req, res, next) => {
   const nonSecurePaths = ['/', '/api/login'];
-  const token =
-    req.body.token || req.query.token || req.headers['x-access-token'];
+  const token = req.headers['x-access-token'];
   if (_.includes(nonSecurePaths, req.path)) {
     return next();
   } else if (token) {
     jwt.verify(token, 'djkhaledanotherone', (err, decoded) => {
       if (err) throw err;
       req.decoded = decoded;
+      res.append('x-acess-token', token);
       next();
     });
   } else {
