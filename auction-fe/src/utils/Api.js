@@ -75,9 +75,29 @@ class Api {
           withCredentials: false,
         },
       );
+      console.log(user);
       return data;
     } catch (error) {
       console.log('error authenticating user', error);
+    }
+  }
+
+  async signup(user) {
+    try {
+      const { data } = await axios.post(
+        'http://localhost:3000/api/signup',
+        {
+          username: user.username,
+          password: user.password,
+        },
+        {
+          withCredentials: false,
+        },
+      );
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log('error creating user', error);
     }
   }
 }

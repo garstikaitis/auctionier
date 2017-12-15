@@ -19,7 +19,7 @@ function loginSucess(user) {
   window.location.href = '/users';
   return {
     type: LOGIN_SUCESS,
-    payload: user.token,
+    payload: user,
   };
 }
 
@@ -35,6 +35,7 @@ export function login(user) {
     dispatch(loginRequest(user));
     try {
       const data = await Api.authenticate(user);
+      window.localStorage.setItem('token', data.token);
       dispatch(loginSucess(data));
     } catch (error) {
       dispatch(loginFailure(error));

@@ -18,13 +18,14 @@ export const login = (req, res) => {
         const token = jwt.sign(payload, process.env.SECRET, {
           expiresIn: 1440,
         });
-        res.json({ success: true, message: 'Enjoy your token!', token });
+        res.json({ token, user });
       }
     }
   });
 };
 
 export const getUsers = (req, res) => {
+  console.log(req.headers);
   User.find({}, (err, data) => {
     if (err) throw err;
     res.json(data);
@@ -34,7 +35,13 @@ export const getUsers = (req, res) => {
 export const createUser = (req, res) => {
   const newUser = new User(req.body).save((err, data) => {
     if (err) throw err;
-    res.json(data);
+    const payload = {
+      admin: data.admin ? true : false,
+    };
+    const token = jwt.sign(payload, process.env.SECRET, {
+      expiresIn: 1440,
+    });
+    res.json({ data, token });
   });
 };
 

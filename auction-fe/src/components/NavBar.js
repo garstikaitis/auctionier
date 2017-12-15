@@ -47,7 +47,7 @@ const NavBarStatic = () => {
               color: '#fff',
               fontWeight: 500,
             }}
-            to="/signup>"
+            to="/signup"
           >
             Signup
           </Link>

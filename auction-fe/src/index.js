@@ -13,6 +13,7 @@ import UserListPage from './pages/UserListPage/UserListPage';
 import UserPage from './pages/UserPage/UserPage';
 import Items from './components/Items/Items';
 import LoginPage from './pages/LoginPage/LoginPage';
+import SignupPage from './pages/SignupPage/SignupPage';
 
 import store from './redux/store';
 
@@ -29,6 +30,7 @@ const Root = () => {
             <Route path="/users/:id" component={UserPage} />
             <Route exact path="/items" component={Items} />
             <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/signup" component={SignupPage} />
           </Switch>
         </Router>
       </MuiThemeProvider>
