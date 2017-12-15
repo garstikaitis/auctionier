@@ -5,6 +5,9 @@ import {
   ADD_ITEM_TO_USER_ERROR,
   ADD_ITEM_TO_USER_PENDING,
   ADD_ITEM_TO_USER_SUCCESS,
+  CREATE_ITEM_ERROR,
+  CREATE_ITEM_PENDING,
+  CREATE_ITEM_SUCCESS,
 } from './actions';
 
 const initialState = {
@@ -40,6 +43,22 @@ export default (state = initialState, action) => {
         loading: false,
       };
     case ADD_ITEM_TO_USER_ERROR:
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    case CREATE_ITEM_PENDING:
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case CREATE_ITEM_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case CREATE_ITEM_ERROR:
       return {
         ...state,
         error: action.error,

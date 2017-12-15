@@ -94,10 +94,30 @@ class Api {
           withCredentials: false,
         },
       );
-      console.log(data);
       return data;
     } catch (error) {
       console.log('error creating user', error);
+    }
+  }
+
+  async createItem(item) {
+    try {
+      const { data } = await axios.post(
+        'http://localhost:3000/api/items',
+        {
+          name: item.name,
+          price: item.price,
+          fileName: item.fileName,
+          fileType: item.fileType,
+        },
+        {
+          withCredentials: false,
+        },
+      );
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log('error creating item', error);
     }
   }
 }

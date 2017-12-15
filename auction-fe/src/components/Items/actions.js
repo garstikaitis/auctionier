@@ -7,6 +7,9 @@ export const FETCH_ITEMS_FAILURE = 'FETCH_ITEMS_FAILURE';
 export const ADD_ITEM_TO_USER_PENDING = 'ADD_ITEM_TO_USER_PENDING';
 export const ADD_ITEM_TO_USER_SUCCESS = 'ADD_ITEM_TO_USER_SUCCESS';
 export const ADD_ITEM_TO_USER_ERROR = 'ADD_ITEM_TO_USER_ERROR';
+export const CREATE_ITEM_PENDING = 'CREATE_ITEM_PENDING';
+export const CREATE_ITEM_SUCCESS = 'CREATE_ITEM_SUCCESS';
+export const CREATE_ITEM_ERROR = 'CREATE_ITEM_ERROR';
 
 function fetchItemsRequest() {
   return {
@@ -59,7 +62,7 @@ function addItemToUserSuccess() {
 function addItemToUserError(error) {
   return {
     type: ADD_ITEM_TO_USER_ERROR,
-    error,
+    payload: error,
   };
 }
 
@@ -71,6 +74,39 @@ export function addItemToUser(userId, itemId) {
       dispatch(addItemToUserSuccess());
     } catch (error) {
       dispatch(addItemToUserError(error));
+    }
+  };
+}
+
+function createItemRequest(details) {
+  return {
+    type: CREATE_ITEM_PENDING,
+    payload: details,
+  };
+}
+
+function createItemSuccess(item) {
+  return {
+    type: CREATE_ITEM_SUCCESS,
+    payload: item,
+  };
+}
+
+function createItemError(error) {
+  return {
+    type: CREATE_ITEM_ERROR,
+    payload: error,
+  };
+}
+
+export function createItem(itemDetails) {
+  return async dispatch => {
+    dispatch(createItemRequest(itemDetails));
+    try {
+      const item = await Api.createItem(itemDetails);
+      dispatch(createItemSuccess(item));
+    } catch (error) {
+      dispatch(createItemError(error));
     }
   };
 }
