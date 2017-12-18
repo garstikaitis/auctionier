@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { Item } from './model';
 import cloudinary from 'cloudinary';
+import multer from 'multer';
 
 export const getItems = (req, res) => {
   Item.find({}, (err, data) => {
@@ -10,12 +11,13 @@ export const getItems = (req, res) => {
 };
 
 export const createItem = (req, res) => {
-  const newItem = new Item(req.body).save((err, data) => {
-    if (err) throw err;
-    console.log(req.files);
-    cloudinary.v2.uploader.upload(req.files.itemImg, (err, image) => {
+  cloudinary.v2.uploader.upload(req.file.path, (err, img) => {
+    const image = img.secure_url;
+    const object = { ...req.body, image };
+    console.log(object);
+    const newItem = new Item(object).save((err, item) => {
       if (err) throw err;
-      res.json(data);
+      res.json({ item });
     });
   });
 };

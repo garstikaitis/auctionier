@@ -90,6 +90,7 @@ class Items extends React.Component {
   handleFile(e) {
     const reader = new FileReader();
     const file = e.target.files[0];
+    console.log(file);
     this.setState({
       fileName: file.name,
       fileType: file.type,
