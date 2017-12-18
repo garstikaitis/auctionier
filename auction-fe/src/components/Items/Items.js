@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import FormData from 'form-data';
 
 import { fetchItems, addItemToUser, createItem } from './actions';
 import { fetchUsers } from '../../pages/UserListPage/actions';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
@@ -13,8 +15,7 @@ class Items extends React.Component {
     this.state = {
       name: '',
       price: '',
-      fileName: '',
-      fileType: '',
+      itemImage: null,
     };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -29,17 +30,6 @@ class Items extends React.Component {
 
   handlePasswordChange(event) {
     this.setState({ price: event.target.value });
-  }
-
-  async handleCreateItem(event) {
-    event.preventDefault();
-    const details = {
-      name: this.state.name,
-      price: this.state.price,
-      fileName: this.state.fileName,
-      fileType: this.state.fileType,
-    };
-    this.props.createItem(details);
   }
 
   componentDidMount() {
@@ -90,12 +80,17 @@ class Items extends React.Component {
   handleFile(e) {
     const reader = new FileReader();
     const file = e.target.files[0];
-    console.log(file);
-    this.setState({
-      fileName: file.name,
-      fileType: file.type,
-    });
+    this.setState({ itemImage: file });
   }
+
+  handleCreateItem = e => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('itemImage', this.state.itemImage);
+    formData.append('name', this.state.name);
+    formData.append('price', this.state.price);
+    this.props.createItem(formData);
+  };
 
   renderForm = () => {
     return (
@@ -119,11 +114,10 @@ class Items extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     if (!this.props.items.loading && !this.props.users.loading) {
       return (
         <div>
-          {this.renderItems()} {this.renderForm()}{' '}
+          {this.renderItems()} {this.renderForm()}
         </div>
       );
     } else {

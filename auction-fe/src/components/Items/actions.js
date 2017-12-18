@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Api from '../../utils/Api';
 import { fetchUsers } from '../../pages/UserListPage/actions';
 
@@ -103,7 +104,11 @@ export function createItem(itemDetails) {
   return async dispatch => {
     dispatch(createItemRequest(itemDetails));
     try {
-      const item = await Api.createItem(itemDetails);
+      const item = axios
+        .post('http://localhost:3000/api/items', itemDetails, {})
+        .then(result => {
+          console.log(result.data);
+        });
       dispatch(createItemSuccess(item));
     } catch (error) {
       dispatch(createItemError(error));

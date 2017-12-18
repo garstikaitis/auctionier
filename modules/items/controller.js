@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { Item } from './model';
 import cloudinary from 'cloudinary';
 import multer from 'multer';
+const fs = require('fs');
 
 export const getItems = (req, res) => {
   Item.find({}, (err, data) => {
@@ -12,13 +13,14 @@ export const getItems = (req, res) => {
 
 export const createItem = (req, res) => {
   cloudinary.v2.uploader.upload(req.file.path, (err, img) => {
+    if (err) throw err;
     const image = img.secure_url;
     const object = { ...req.body, image };
-    console.log(object);
     const newItem = new Item(object).save((err, item) => {
       if (err) throw err;
       res.json({ item });
     });
+    fs.unlinkSync(req.file.path);
   });
 };
 
