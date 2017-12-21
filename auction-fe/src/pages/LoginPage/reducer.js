@@ -11,6 +11,7 @@ export default (state = initialState, action) => {
     case LOGIN_PENDING:
       return state;
     case LOGIN_SUCESS:
+      console.log(action);
       return {
         ...state,
         data: action.payload,

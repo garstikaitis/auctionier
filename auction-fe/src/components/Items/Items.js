@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import FormData from 'form-data';
 
 import { fetchItems, addItemToUser, createItem } from './actions';
-import { fetchUsers } from '../../pages/UserListPage/actions';
+import { fetchUsers } from '../../pages/Dashboard/actions';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';

@@ -5,6 +5,7 @@ import NavBarStatic from '../../components/NavBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { login } from './actions';
+import { Field, reduxForm } from 'redux-form';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -16,7 +17,6 @@ class LoginPage extends React.Component {
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.login = this.login.bind(this);
   }
 
   handleUsernameChange(event) {
@@ -107,6 +107,10 @@ class LoginPage extends React.Component {
   }
 }
 
-export default connect(state => ({ users: state.authentication }), { login })(
-  LoginPage,
-);
+LoginPage = reduxForm({
+  form: 'login',
+});
+
+export default connect(state => ({ authentication: state.authentication }), {
+  login,
+})(LoginPage);

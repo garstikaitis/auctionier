@@ -9,7 +9,7 @@ import muiTheme from './common/palette';
 import './App.css';
 
 import Main from './components/Main';
-import UserListPage from './pages/UserListPage/UserListPage';
+import Dashboard from './pages/Dashboard/Dashboard';
 import UserPage from './pages/UserPage/UserPage';
 import Items from './components/Items/Items';
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -26,7 +26,7 @@ const Root = () => {
         <Router>
           <Switch>
             <Route exact path="/" component={Main} />
-            <Route exact path="/users" component={UserListPage} />
+            <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/users/:id" component={UserPage} />
             <Route exact path="/items" component={Items} />
             <Route exact path="/login" component={LoginPage} />
