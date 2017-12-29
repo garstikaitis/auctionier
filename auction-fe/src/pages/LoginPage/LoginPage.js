@@ -17,6 +17,7 @@ class LoginPage extends React.Component {
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.login = this.login.bind(this);
   }
 
   handleUsernameChange(event) {
@@ -27,7 +28,8 @@ class LoginPage extends React.Component {
     this.setState({ password: event.target.value });
   }
 
-  async login(event) {
+  login(event) {
+    console.log(this.state);
     event.preventDefault();
     const credentials = {
       username: this.state.username,
@@ -107,9 +109,9 @@ class LoginPage extends React.Component {
   }
 }
 
-LoginPage = reduxForm({
-  form: 'login',
-});
+// LoginPage = reduxForm({
+//   form: 'loginForm',
+// })(LoginPage);
 
 export default connect(state => ({ authentication: state.authentication }), {
   login,

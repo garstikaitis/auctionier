@@ -16,7 +16,7 @@ function loginRequest(user) {
 }
 
 function loginSucess(user) {
-  window.location.href = '/users';
+  window.location.href = '/dashboard';
   return {
     type: LOGIN_SUCESS,
     payload: user,

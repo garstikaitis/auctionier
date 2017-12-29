@@ -15,7 +15,7 @@ function signupRequest(user) {
 }
 
 function signupSucess(user) {
-  window.location.href = '/users';
+  window.location.href = '/dashboard';
   return {
     type: SIGNUP_SUCESS,
     payload: user,
