@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import muiTheme from './common/palette';
+// import storage from 'redux-persist/lib/storage';
+// import { persistStore } from 'redux-persist';
 
 import './App.css';
 
@@ -19,24 +20,28 @@ import store from './redux/store';
 
 import registerServiceWorker from './registerServiceWorker';
 
-const Root = () => {
-  return (
-    <Provider store={store}>
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route path="/users/:id" component={UserPage} />
-            <Route exact path="/items" component={Items} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/signup" component={SignupPage} />
-          </Switch>
-        </Router>
-      </MuiThemeProvider>
-    </Provider>
-  );
-};
+class Root extends React.Component {
+  render() {
+    return (
+      <div className="app">
+        <Provider store={store}>
+          <MuiThemeProvider muiTheme={muiTheme}>
+            <Router>
+              <Switch>
+                <Route exact path="/" component={Main} />
+                <Route exact path="/dashboard" component={Dashboard} />
+                <Route path="/users/:id" component={UserPage} />
+                <Route exact path="/items" component={Items} />
+                <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/signup" component={SignupPage} />
+              </Switch>
+            </Router>
+          </MuiThemeProvider>
+        </Provider>
+      </div>
+    );
+  }
+}
 
 ReactDOM.render(<Root />, document.getElementById('root'));
 registerServiceWorker();

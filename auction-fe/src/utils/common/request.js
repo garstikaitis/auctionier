@@ -4,8 +4,6 @@ axios.defaults.headers.common['x-access-token'] = window.localStorage.getItem(
   'token',
 );
 
-const token = window.localStorage.getItem('token');
-
 export const get = async resource => {
   return axios.get(`http://localhost:3000/api/${resource}`, {
     withCredentials: false,

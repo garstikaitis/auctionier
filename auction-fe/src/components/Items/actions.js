@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Api from '../../utils/Api';
-import { fetchUsers } from '../../pages/Dashboard/actions';
 
 export const FETCH_ITEMS_PENDING = 'FETCH_ITEMS_PENDING';
 export const FETCH_ITEMS_SUCCESS = 'FETCH_ITEMS_SUCCESS';
@@ -37,6 +36,7 @@ export function fetchItems() {
     dispatch(fetchItemsRequest());
     try {
       const data = await Api.getItems();
+
       dispatch(fetchItemsSuccess(data));
     } catch (error) {
       dispatch(fetchItemsFailure(error));

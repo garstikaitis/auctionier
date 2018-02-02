@@ -1,5 +1,4 @@
 import Api from '../../utils/Api';
-import axios from 'axios';
 
 export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_SUCESS = 'LOGIN_SUCESS';

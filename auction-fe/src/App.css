@@ -1,8 +1,11 @@
 body {
+  background-image: url('../src/resources/images/login-page.jpg');
   margin: 0 auto;
   font-family: 'Roboto', sans-serif;
-  background-image: url('../src/resources/images/login-page.jpg');
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  .app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90vw;
+  }
 }

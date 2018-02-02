@@ -1,12 +1,8 @@
 /* eslint no-restricted-globals: 0 */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 import {
   Card,
   CardActions,
@@ -16,30 +12,38 @@ import {
   CardText,
 } from 'material-ui/Card';
 
-import Api from '../../utils/Api';
-import { fetchUsers, createUser, deleteUser } from './actions';
+import './dashboard.css';
+
+import { fetchItems } from '../../components/Items/actions';
 
 class Dashboard extends React.Component {
+  componentDidMount() {
+    this.props.fetchItems();
+  }
+
+  renderItems = () => {
+    if (this.props.items.data) {
+      return this.props.items.data.map(item => (
+        <Card className="card">
+          <CardHeader title={item.name} />
+          <CardTitle title={item.price} />
+          <CardMedia>
+            <img class="card-image" src={item.image} />
+          </CardMedia>
+          <CardActions>
+            <RaisedButton label="Details" primary />
+            <RaisedButton label="Quick Bid" secondary />
+          </CardActions>
+        </Card>
+      ));
+    }
+  };
   render() {
-    return (
-      <Card>
-        <CardHeader title="URL Avatar" subtitle="Subtitle" />
-        <CardTitle title="Card title" subtitle="Card subtitle" />
-        <CardText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis
-          pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate
-          interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-        </CardText>
-        <CardActions>
-          <RaisedButton label="Action1" />
-          <RaisedButton label="Action2" />
-        </CardActions>
-      </Card>
-    );
+    return <div className="items-container">{this.renderItems()}</div>;
   }
 }
 
-export default connect(state => ({ authentication: state.authentication }), {})(
-  Dashboard,
-);
+export default connect(
+  state => ({ authentication: state.authentication, items: state.items }),
+  { fetchItems },
+)(Dashboard);

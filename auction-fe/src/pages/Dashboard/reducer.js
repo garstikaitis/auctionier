@@ -10,6 +10,12 @@ import {
   DELETE_USER_ERROR,
 } from './actions';
 
+import {
+  FETCH_ITEMS_PENDING,
+  FETCH_ITEMS_FAILURE,
+  FETCH_ITEMS_SUCCESS,
+} from '../../components/Items/actions';
+
 const initialState = {
   loading: true,
   data: [],

@@ -5,7 +5,6 @@ import NavBarStatic from '../../components/NavBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { login } from './actions';
-import { Field, reduxForm } from 'redux-form';
 
 class LoginPage extends React.Component {
   constructor(props) {

@@ -44,10 +44,7 @@ class Items extends React.Component {
   };
 
   renderItems = () => {
-    if (
-      this.props.items.data ||
-      this.props.items.data.length !== this.props.items.data.length
-    ) {
+    if (this.props.items.data) {
       return this.props.items.data.map(item => (
         <div>
           <p>Assign {item.name} to: </p>
@@ -78,7 +75,6 @@ class Items extends React.Component {
   };
 
   handleFile(e) {
-    const reader = new FileReader();
     const file = e.target.files[0];
     this.setState({ itemImage: file });
   }
